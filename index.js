@@ -15,7 +15,6 @@ async function run() {
     try {
         await client.connect();
         const warehouseCollection = client.db('Bike-inventory').collection('bike-collection');
-
         app.get('/products', async (req, res) => {
             const query = {};
             const cursor = warehouseCollection.find(query);
@@ -34,14 +33,12 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result)
         })
-
         app.get('/myProducts', async (req, res) => {
             const email = req.query.email;
             const query = { email };
             const cursor = warehouseCollection.find(query);
             const result = await cursor.toArray();
             res.send(result)
-
         })
         app.put('/products/:id', async (req, res) => {
             const id = req.params.id;
@@ -55,7 +52,6 @@ async function run() {
             };
             const result = await warehouseCollection.updateOne(filter, updateDoc, options);
             res.send(result)
-
         })
         app.delete('/products/:id', async (req, res) => {
             const id = req.params.id;
@@ -65,14 +61,12 @@ async function run() {
         })
     }
     finally {
-
     }
 }
 run().catch(console.dir)
 app.get('/', (req, res) => {
     res.send('runing warehouse management server ');
 })
-
 app.listen(port, () => {
     console.log('runing  port : ', port);
 })
