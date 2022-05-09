@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
+
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
@@ -28,14 +28,7 @@ async function run() {
             const result = await warehouseCollection.insertOne(query);
             res.send(result)
         })
-        // auth
-        app.post('/login', async (req, res) => {
-            const user = req.body;
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1d'
-            })
-            res.send({ accessToken });
-        })
+
 
         app.get('/products/:id', async (req, res) => {
             const id = req.params.id;
